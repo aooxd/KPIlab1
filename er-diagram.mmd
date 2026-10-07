@@ -1,0 +1,51 @@
+```mermaid
+erDiagram
+    USER {
+        uuid id PK
+        string full_name
+        string email
+        string phone
+        datetime created_at
+    }
+
+    GAMETABLE {
+        uuid id PK
+        int table_number
+        string zone_type
+        int capacity
+        decimal hourly_rate
+    }
+
+    BOARDGAME {
+        uuid id PK
+        string title
+        string genre
+        int min_players
+        int max_players
+    }
+
+    BOOKING {
+        uuid id PK
+        uuid user_id FK
+        uuid table_id FK
+        datetime start_time
+        datetime end_time
+        decimal total_price
+        string status
+    }
+
+    REVIEW {
+        uuid id PK
+        uuid user_id FK
+        uuid table_id FK
+        int rating
+        string comment
+        datetime created_at
+    }
+
+    USER ||--o{ BOOKING : "places"
+    GAMETABLE ||--o{ BOOKING : "reserved_in"
+    BOOKING }|--|{ BOARDGAME : "includes"
+    USER ||--o{ REVIEW : "writes"
+    GAMETABLE ||--o{ REVIEW : "receives"
+```
